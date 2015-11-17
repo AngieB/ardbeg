@@ -3,7 +3,9 @@ window.Ardbeg =
   Collections: {}
   Views: {}
   Routers: {}
-  initialize: -> alert 'Hello from Backbone!'
+  initialize: ->
+    new Ardbeg.Routers.Posts()
+    Backbone.history.start()
 
 $(document).ready ->
   Ardbeg.initialize()
