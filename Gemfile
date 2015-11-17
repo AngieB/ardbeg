@@ -16,6 +16,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'faker'
   gem 'factory_girl_rails'
+  gem 'jasmine-rails'
 end
 
 group :development do
