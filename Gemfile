@@ -10,6 +10,8 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'backbone-on-rails'
+gem 'momentjs-rails'
+gem 'bootstrap'
 
 group :development, :test do
   gem 'byebug'
