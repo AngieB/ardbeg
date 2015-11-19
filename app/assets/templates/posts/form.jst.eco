@@ -1,0 +1,25 @@
+<div id='post-form-container' class='row'>
+  <h3>Submit a Posting</h3>
+  <hr>
+  <form data-post-form=''>
+    <div class='col-sm-4'>
+      <fieldset class='form-group'>
+        <label for='post-title'>Title</label>
+        <input autofocus type='text' class='form-control' id='post-title' value=<%= @model.get('title') %> >
+      </fieldset>
+      <fieldset class='form-group'>
+        <label for='post-name'>Name</label>
+        <input type='text' class='form-control' id='post-name' value=<%= @model.get('name') %>>
+      </fieldset>
+    </div>
+    <div class='col-sm-8'>
+      <fieldset class='form-group'>
+        <label for='post-body'>Message</label>
+        <textarea class='form-control' id='post-body' rows='5' ><%= @model.get('body') %></textarea>
+      </fieldset>
+    </div>
+    <div class='col-sm-offset-10 col-sm-2'>
+      <button type='submit' class='btn btn-primary' data-post-submit=''>Submit</button>
+    </div>
+  </form>
+</div>

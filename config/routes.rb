@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  
-  namespace :api do
+
+  namespace :api, format: :json do
     resources :posts
   end
 

@@ -1,0 +1,11 @@
+<div id='post-show' class='row'>
+  <h3><%= @model.get('title') %></h3>
+  <small class='text-muted'>Posted <%= @model.buildDateTime() %> by <%= @model.get('name') %></small>
+  <hr>
+  <form data-post-form=''>
+    <div class='col-sm-12'><%= @model.get('body') %></div>
+    <div class='col-sm-offset-10 col-sm-2'>
+      <a href='#' class='btn btn-secondary' data-post-edit='' data-post-id=<%= @model.get('id') %>>Edit</a>
+    </div>
+  </form>
+</div>

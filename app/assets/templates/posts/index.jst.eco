@@ -1,1 +1,36 @@
-<h1>Ardbeg</h1>
+<h1>ViralHeat Message Board</h1>
+
+<div class='col-sm-12'>
+  <div class='post-board-header row' >
+    <p class='col-sm-2 actions'>
+      <a class='btn-primary btn-sm new-post' data-posts-new=''>New Post</a>
+    </p>
+
+    <p class='col-sm-offset-9 col-sm-1 list'>
+      <button data-posts-index='' class='btn btn-secondary btn-sm'>List</button>
+    </p>
+  </div>
+</div>
+
+<div class='col-sm-12'>
+  <ul class='list-group' data-board-message=''>
+    <% for post in @collection.models: %>
+      <li class='list-group-item row' data-post-id=<%= post.get('id') %> >
+        <p class='post-edit col-sm-1'>
+          <a href='#' data-post-edit=''>Edit</a>
+        </p>
+        <div data-post-show=''>
+          <p class='post-content col-sm-10'>
+            <span class='clearfix'>
+              <%= post.get('title') %>
+            </span>
+            <small class='text-muted'>Posted <%= post.buildDateTime() %> by <%= post.get('name') %></small>
+          </p>
+        </div>
+        <p class='post-delete col-sm-1'>
+          <a href='#' data-post-destroy=''>remove</a>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+</div>
