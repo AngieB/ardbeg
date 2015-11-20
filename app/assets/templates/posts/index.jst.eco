@@ -3,7 +3,7 @@
 <div class='col-sm-12'>
   <div class='post-board-header row' >
     <p class='col-sm-2 actions'>
-      <a class='btn-primary btn-sm new-post' data-posts-new=''>New Post</a>
+      <a class='btn btn-primary btn-sm new-post' data-posts-new=''>New Post</a>
     </p>
 
     <p class='col-sm-offset-9 col-sm-1 list'>
@@ -17,7 +17,7 @@
     <% for post in @collection.models: %>
       <li class='list-group-item row' data-post-id=<%= post.get('id') %> >
         <p class='post-edit col-sm-1'>
-          <a href='#' data-post-edit=''>Edit</a>
+          <a href='#' data-post-edit=''></a>
         </p>
         <div data-post-show=''>
           <p class='post-content col-sm-10'>
@@ -28,7 +28,7 @@
           </p>
         </div>
         <p class='post-delete col-sm-1'>
-          <a href='#' data-posts-destroy=''>remove</a>
+          <a href='#' data-posts-destroy=''></a>
         </p>
       </li>
     <% end %>
