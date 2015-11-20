@@ -28,7 +28,7 @@
           </p>
         </div>
         <p class='post-delete col-sm-1'>
-          <a href='#' data-post-destroy=''>remove</a>
+          <a href='#' data-posts-destroy=''>remove</a>
         </p>
       </li>
     <% end %>

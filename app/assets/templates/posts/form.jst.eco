@@ -18,8 +18,13 @@
         <textarea class='form-control' id='post-body' rows='5' ><%= @model.get('body') %></textarea>
       </fieldset>
     </div>
-    <div class='col-sm-offset-10 col-sm-2'>
-      <button type='submit' class='btn btn-primary' data-post-submit=''>Submit</button>
+    <div class='col-sm-offset-8 col-sm-4 pull-right'>
+      <% if @model.isNew(): %>
+        <button type='submit' class='btn btn-primary pull-right' data-post-submit=''>Submit</button>
+      <% else: %>
+        <a href='#' class='btn btn-warning' data-post-destroy='' data-post-id=<%= @model.get('id') %>>Delete</a>
+        <button type='submit' class='btn btn-primary pull-right' data-post-submit=''>Update</button>
+      <% end %>
     </div>
   </form>
 </div>

@@ -7,7 +7,7 @@ class Ardbeg.Views.PostsIndex extends Backbone.View
     'click [data-post-show]': 'showPostView'
     'click [data-posts-new]': 'newPostView'
     'click [data-post-edit]': 'editPostView'
-    'click [data-post-destroy]': 'destroyPost'
+    'click [data-posts-destroy]': 'destroyPost'
 
   render:  ->
     @collection.fetch(success: @onSuccess, error: @onError)

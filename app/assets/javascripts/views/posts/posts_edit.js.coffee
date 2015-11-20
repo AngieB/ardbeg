@@ -4,6 +4,7 @@ class Ardbeg.Views.PostsEdit extends Backbone.View
 
   events:
     'click [data-post-submit]': 'updatePost'
+    'click [data-post-destroy]': 'destroyPost'
     'keyup input, textarea': 'requiredInput'
 
   render: ->
@@ -21,6 +22,16 @@ class Ardbeg.Views.PostsEdit extends Backbone.View
       wait: true
       success: @onSuccess
       error: @handleError
+
+  destroyPost: (event) ->
+    event.preventDefault()
+    postId = $(event.currentTarget).data('post-id')
+    post = new Ardbeg.Models.Post(id: postId)
+
+    post.destroy
+      wait: true
+      success: @onSuccess
+      error: @onError
 
   onSuccess: (model, response) =>
     $('[data-flash-message]').parent('div').removeClass('alert-danger')
