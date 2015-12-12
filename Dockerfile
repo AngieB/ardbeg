@@ -8,7 +8,7 @@ MAINTAINER Angie Brandt 'angiebrandt@gmail.com'
 
 RUN apt-get update && apt-get install -y \
     bash \
-    build-esssential \
+    build-essential \
     git \
     libpq-dev \
     postgresql-client \
