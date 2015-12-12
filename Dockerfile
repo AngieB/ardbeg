@@ -1,8 +1,6 @@
 FROM ruby:2.2.3
 MAINTAINER Angie Brandt 'angiebrandt@gmail.com'
 
-HOME /root
-
 ## Create a user for the web app.
 #RUN addgroup --gid 9999 app && \
 #    adduser --uid 9999 --gid 9999 --disabled-password --gecos "Application" app && \
