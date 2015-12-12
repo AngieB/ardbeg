@@ -20,8 +20,9 @@ namespace :docker do
           execute :docker, "run -ti -d --restart=always --name #{app_name} #{run_env_vars} #{volume} #{app_name}-image"
         end
       end
-      # after "docker:container:setup", "docker:rails_app:prepare"
+      #after "docker:container:setup", "docker:rails_app:prepare"
       # after "docker:container:setup", "docker:nginx:reload"
+      # after "docker:container:setup", "docker:monit:setup"
     end
     desc "Restart docker container and all services therein"
     task :restart do
@@ -32,29 +33,30 @@ namespace :docker do
       end
     end
   end
-  # namespace :rails_app do
-  #   desc "Prepare the rails app post deployment"
-  #   task :prepare do
-  #     on roles(:app) do |host|
-  #       app_name = fetch(:application)
-  #       execute :docker, "exec -i -u 9999 #{app_name} bundle install --path shared/bundle --without development:test:cucumber:guard:guard_linux:guard_osx --deployment && bundle"
-  #       execute :docker, "exec -i -u 9999 #{app_name} bundle exec rake assets:precompile"
-  #       execute :docker, "exec -i -u 9999 #{app_name} bundle exec rake db:migrate"
-  #     end
-  #   end
-  # end
-  # namespace :nginx do
-  #   desc "Reload nginx with the rails app's config file"
-  #   task :reload do
-  #     on roles(:app) do |host|
-  #       app_name = fetch(:application)
-  #       rails_env = fetch(:rails_env)
-  #       execute "sleep 3"
-  #       execute :docker, "exec -i #{app_name} cp #{shared_path}/config/nginx/#{app_name}_#{rails_env}.conf /etc/nginx/sites-enabled/#{app_name}.conf"
-  #       execute :docker, "exec -i #{app_name} nginx -s reload"
-  #     end
-  #   end
-  # end
+  namespace :rails_app do
+    desc "Prepare the rails app post deployment"
+    task :prepare do
+      on roles(:app) do |host|
+        app_name = fetch(:application)
+        execute :docker, "exec -i -u 9999 #{app_name} bundle install --path shared/bundle --without development:test:cucumber:guard:guard_linux:guard_osx --deployment && bundle"
+        execute :docker, "exec -i -u 9999 #{app_name} bundle exec rake assets:precompile"
+        execute :docker, "exec -i -u 9999 #{app_name} bundle exec rake db:migrate"
+      end
+    end
+  end
+  namespace :nginx do
+    desc "Reload nginx with the rails app's config file"
+    task :reload do
+      on roles(:app) do |host|
+        app_name = fetch(:application)
+        rails_env = fetch(:rails_env)
+        execute "sleep 3"
+        execute :docker, "exec -i #{app_name} cp #{shared_path}/config/nginx/#{app_name}_#{rails_env}.conf /etc/nginx/sites-enabled/#{app_name}.conf"
+        execute :docker, "exec -i #{app_name} nginx -s reload"
+      end
+    end
+  end
+end
 
 SSHKit.configure do |config|
   config.command_map["docker"] = "/usr/bin/env docker"

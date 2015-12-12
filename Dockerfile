@@ -1,5 +1,5 @@
 FROM ruby:2.2.3
-MAINTAINED BY Angie Brandt 'angiebrandt@gmail.com'
+MAINTAINER Angie Brandt 'angiebrandt@gmail.com'
 
 HOME /root
 
