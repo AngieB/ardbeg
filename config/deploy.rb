@@ -1,14 +1,14 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :application, 'forum'
-set :repo_url, 'angieb@github.com:me/ardbeg.git'
+set :application, 'testapp'
+set :repo_url, 'git@github.com:angieb/ardbeg.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/forum'
+set :deploy_to, '/var/www/testapp'
 server '104.239.138.237', user: 'deploy', roles: %w{web app db}, my_property: :my_value
 
 # Default value for :scm is :git
