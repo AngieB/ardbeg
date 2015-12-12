@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     postgresql-client \
     vim
 
-COPY Gemfile* /tmp
+COPY Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
 
@@ -22,4 +22,5 @@ RUN mkdir -p /var/www/testapp
 ADD . /var/www/testapp
 RUN mkdir /var/www/shared
 
+WORKDIR /var/www/testapp
 CMD rails s -b 0.0.0.0
