@@ -9,8 +9,7 @@ namespace :docker do
         app_name = fetch(:application)
         server_name = fetch(:server_name)
         rails_env = fetch(:rails_env)
-        resque_child_report_queues = fetch(:resque_child_report_queues)
-        run_env_vars = "-e RAILS_ENV=#{rails_env} -e RAILS_APP_NAME=#{app_name} -p 80:80"
+        run_env_vars = "-e RAILS_ENV=#{rails_env} -e RAILS_APP_NAME=#{app_name} -p 80:3000 --link db-server -e SECRET_KEY_BASE='rake secret'"
         volume = "-v /var/www/#{app_name}/shared:/var/www/#{app_name}/shared"
         puts "================Starting Docker setup===================="
         within :"#{current_path}" do
@@ -20,7 +19,7 @@ namespace :docker do
           execute :docker, "run -ti -d --restart=always --name #{app_name} #{run_env_vars} #{volume} #{app_name}-image"
         end
       end
-      after "docker:container:setup", "docker:rails_app:prepare"
+      # after "docker:container:setup", "docker:rails_app:prepare"
       # after "docker:container:setup", "docker:nginx:reload"
       # after "docker:container:setup", "docker:monit:setup"
     end
@@ -39,7 +38,7 @@ namespace :docker do
       on roles(:app) do |host|
         app_name = fetch(:application)
         # execute :docker, "exec -i -u 9999 #{app_name} bundle install --path shared/bundle --without development:test:cucumber:guard:guard_linux:guard_osx --deployment && bundle"
-        # execute :docker, "exec -i -u 9999 #{app_name} bundle exec rake assets:precompile"
+        execute :docker, "exec -i #{app_name} rake assets:precompile"
         execute :docker, "exec -i #{app_name} rake db:migrate"
       end
     end

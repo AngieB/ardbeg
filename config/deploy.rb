@@ -1,6 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
+set :rails_env, fetch(:stage)
 set :application, 'testapp'
 set :repo_url, 'git@github.com:angieb/ardbeg.git'
 
