@@ -31,4 +31,5 @@ VOLUME /var/www/testapp/shared
 
 RUN bundle exec rake assets:precompile
 
-CMD export SECRET_KEY_BASE=`bundle exec rake secret` 
+CMD export SECRET_KEY_BASE=`bundle exec rake secret`
+#    rails s -b 0.0.0.0
