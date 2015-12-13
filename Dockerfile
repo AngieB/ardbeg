@@ -8,11 +8,15 @@ MAINTAINER Angie Brandt 'angiebrandt@gmail.com'
 
 RUN apt-get update && apt-get install -y \
     bash \
+    curl \
     build-essential \
     git \
     libpq-dev \
     postgresql-client \
     vim
+    
+RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    apt-get install -y nodejs
 
 COPY Gemfile* /tmp/
 WORKDIR /tmp
