@@ -27,6 +27,9 @@ ADD . /var/www/testapp
 RUN mkdir /var/www/shared
 
 WORKDIR /var/www/testapp
-
 VOLUME /var/www/testapp/shared
-#CMD rails s -b 0.0.0.0
+
+RUN bundle exec rake assets:precompile
+RUN bundle exec rake db:migrate
+
+CMD rails s -b 0.0.0.0
