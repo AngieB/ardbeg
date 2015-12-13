@@ -29,4 +29,4 @@ RUN mkdir /var/www/shared
 WORKDIR /var/www/testapp
 
 VOLUME /var/www/testapp/shared
-CMD rails s -b 0.0.0.0
+#CMD rails s -b 0.0.0.0
