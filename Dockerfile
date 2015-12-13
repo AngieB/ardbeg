@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     postgresql-client \
     vim
-    
+
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     apt-get install -y nodejs
 
@@ -27,4 +27,6 @@ ADD . /var/www/testapp
 RUN mkdir /var/www/shared
 
 WORKDIR /var/www/testapp
+
+VOLUME /var/www/testapp/shared
 CMD rails s -b 0.0.0.0

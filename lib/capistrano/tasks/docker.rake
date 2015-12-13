@@ -40,7 +40,7 @@ namespace :docker do
         app_name = fetch(:application)
         # execute :docker, "exec -i -u 9999 #{app_name} bundle install --path shared/bundle --without development:test:cucumber:guard:guard_linux:guard_osx --deployment && bundle"
         # execute :docker, "exec -i -u 9999 #{app_name} bundle exec rake assets:precompile"
-        execute :docker, "exec -i #{app_name} rake doc:app"
+        execute :docker, "exec -i #{app_name} rake db:migrate"
       end
     end
   end
