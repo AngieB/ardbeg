@@ -1,22 +1,24 @@
-FROM ruby:2.2.3
+FROM phusion/passenger-ruby22:latest
 MAINTAINER Angie Brandt 'angiebrandt@gmail.com'
 
-## Create a user for the web app.
-#RUN addgroup --gid 9999 app && \
-#    adduser --uid 9999 --gid 9999 --disabled-password --gecos "Application" app && \
-#    usermod -L app
+# Set correct environment variables.
+ENV HOME /root
+
+# Use baseimage-docker's init process.
+CMD ["/sbin/my_init"]
 
 RUN apt-get update && apt-get install -y \
     bash \
     curl \
-    build-essential \
-    git \
     libpq-dev \
     postgresql-client \
     vim
 
-RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    apt-get install -y nodejs
+#Restart Nginx
+RUN rm -f /etc/service/nginx/down
+
+RUN rm -f /etc/nginx/sites-enabled/default
+COPY testapp.conf /etc/nginx/sites-enabled/testapp.conf
 
 COPY Gemfile* /tmp/
 WORKDIR /tmp
@@ -25,11 +27,9 @@ RUN bundle install
 RUN mkdir -p /var/www/testapp
 ADD . /var/www/testapp
 RUN mkdir /var/www/testapp/shared
+RUN chown -R app:app /var/www/testapp
 
 WORKDIR /var/www/testapp
-VOLUME /var/www/testapp/shared
 
-RUN bundle exec rake assets:precompile
-
-CMD export SECRET_KEY_BASE=`bundle exec rake secret`
-#    rails s -b 0.0.0.0
+RUN sudo -u app bundle exec rake assets:precompile
+RUN sudo -u app bundle exec rake db:migrate

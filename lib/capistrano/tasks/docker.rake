@@ -9,10 +9,12 @@ namespace :docker do
         app_name = fetch(:application)
         server_name = fetch(:server_name)
         rails_env = fetch(:rails_env)
-        run_env_vars = "-e RAILS_ENV=#{rails_env} -e RAILS_APP_NAME=#{app_name} -p 80:3000 --link db-server -e SECRET_KEY_BASE='rake secret'"
+        run_env_vars = "-e PASSENGER_APP_ENV=#{rails_env} -e RAILS_ENV=#{rails_env} -e RAILS_APP_NAME=#{app_name} -p 80:80 --link db-server"
         volume = "-v /var/www/#{app_name}/shared:/var/www/#{app_name}/shared"
         puts "================Starting Docker setup===================="
-        within :"#{current_path}" do
+        execute "cp /var/www/shared/database.yml #{current_path}/config/database.yml"
+        execute "cp /var/www/shared/secrets.yml #{current_path}/config/secrets.yml"
+        within "#{current_path}" do
           execute :docker, "build --rm=true -t #{app_name}-image ."
           execute :docker, "stop #{app_name}; echo 0"
           execute :docker, "rm -fv #{app_name}; echo 0"
