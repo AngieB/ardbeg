@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
 RUN rm -f /etc/service/nginx/down
 
 RUN rm -f /etc/nginx/sites-enabled/default
-COPY testapp.conf /etc/nginx/sites-enabled/testapp.conf
-
+COPY ./testapp.conf /etc/nginx/sites-enabled/testapp.conf
+COPY ./app-env.conf /etc/nginx/main.d/app-env.conf
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
