@@ -32,4 +32,3 @@ RUN chown -R app:app /var/www/testapp
 WORKDIR /var/www/testapp
 
 RUN sudo -u app bundle exec rake assets:precompile
-RUN sudo -u app bundle exec rake db:migrate
